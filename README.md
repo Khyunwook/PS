@@ -1,3 +1,11 @@
+#FASTSUM
+```c++
+int fastSum(int n){
+	if(n==1)return 1;
+	if(n%2==1) return fastSum(n-1) +n;
+	return 2*fastSum(n/2) + (n/2)*(n/2);
+}
+```
 #n개의 연속된 숫자중 m개를 뽑는 경우의 수
 ```c++
 void printPicked(vector<int> picked){
