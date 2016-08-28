@@ -1,3 +1,20 @@
+#최대공약수, 최소 공배수
+```c++
+//최대 공약수
+int gcd(int a, int b)
+{
+    if (b == 0)
+        return a;
+    gcd(b, a%b);
+}
+ 
+//최대 공배수
+int lcm(int a, int b)
+{
+    return (a*b) / gcd(a, b);
+}
+```
+
 #FASTSUM
 ```c++
 int fastSum(int n){
