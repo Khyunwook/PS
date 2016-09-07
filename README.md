@@ -1,3 +1,13 @@
+반올림
+```c++
+#define banollim(x,dig) (floor((x)*pow(10,dig)+0.5)/pow(10,dig))
+
+double Rounding( double x, int digit )
+{
+    //digit자리까지 반올림
+    return ( floor( (x) * pow( float(10), digit ) + 0.5f ) / pow( float(10), digit ) );
+}
+```
 #LIS 최장증가수열(O(n^2))
 ```c++
 //최대 공약수
