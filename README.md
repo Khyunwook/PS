@@ -1,4 +1,22 @@
-대각선 채우기(행렬의 곱샘)
+#Floyd
+```c++
+for (int k = 0; k < N; ++k)
+    {
+        for (int i = 0; i < N; ++i)
+        {
+            for (int j = 0; j < N; ++j)
+            {
+                if (d[i][j] > d[i][k] + d[k][j])
+                {
+                    d[i][j] = d[i][k] + d[k][j];
+                    via[i][j] = k;
+                }
+            }
+        }
+    }
+```
+
+#대각선 채우기(행렬의 곱샘)
 ```c++
 for (i = 2; i <= N; i++)//범위
          for (j = 1; j + i - 1 <= N; j++) //1~N
@@ -7,7 +25,7 @@ for (i = 2; i <= N; i++)//범위
                A[j][j + i - 1] = min(A[j][j + i - 1], A[j][j+k-1] + A[j+k][j + i - 1]);
             }
 ```
-반올림
+#반올림
 ```c++
 #define banollim(x,dig) (floor((x)*pow(10,dig)+0.5)/pow(10,dig))
 
