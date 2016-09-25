@@ -1,3 +1,12 @@
+대각선 채우기(행렬의 곱샘)
+```c++
+for (i = 2; i <= N; i++)//범위
+         for (j = 1; j + i - 1 <= N; j++) //1~N
+            for (k = 1; k <= i; k++)//
+            {
+               A[j][j + i - 1] = min(A[j][j + i - 1], A[j][j+k-1] + A[j+k][j + i - 1]);
+            }
+```
 반올림
 ```c++
 #define banollim(x,dig) (floor((x)*pow(10,dig)+0.5)/pow(10,dig))
