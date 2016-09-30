@@ -1,3 +1,24 @@
+#팬윅트리
+```c++
+#include <cstdio>
+#include <vector>
+using namespace std;
+long long sum(vector<long long> &tree, int i) {
+    long long ans = 0;
+    while (i > 0) {
+        ans += tree[i];
+        i -= (i & -i);
+    }
+    return ans;
+}
+void update(vector<long long> &tree, int i, long long diff) {
+    while (i < tree.size()) {
+        tree[i] += diff;
+        i += (i & -i);
+    }
+}
+```
+
 #가장 가까운 두점 찾기
 ```c++
 #include <cstdio>
