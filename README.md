@@ -337,6 +337,7 @@ void Eratos(int n)
 		false값을 준다.
 		PrimeArray[i]가 false이면 i는 이미 소수가 아니므로 i의 배수 역시
 		소수가 아니게 된다. 그러므로 검사할 필요도 없다.	*/
+		//i*2 (정수 over flow 막기 위해)
 	for(int i=2; (i*i)<=n; i++)
 	{
 		if(PrimeArray[i])
