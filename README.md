@@ -33,7 +33,7 @@ void backTracking(int m, int n){
           backTracking(m-1, n);
     }
 }
-``
+```
 #세그먼트 트리
 
 ```c++
