@@ -1,3 +1,37 @@
+#최장 공통 부분 수열(LCS)
+```c++
+int LCS(string& input, string& compare){
+    int cache[1001][1001];
+    memset(cache,0,sizeof(cache));
+    for(int i=1;i<=compare.length();i++){
+        for(int j=1; j<=input.length();j++){
+            if(compare[i-1] == input[j-1]){
+                cache[i][j] = cache[i-1][j-1] +1;
+                }
+            else{
+                cache[i][j] = max(cache[i-1][j], cache[i][j-1]);
+            }
+        }
+    }
+    return cache[compare.length()][input.length()];
+}
+```
+#LCS 백트래킹
+```
+string output;
+void backTracking(int m, int n){
+    if(m==0 || n ==0) return;
+    if(cache[m][n] > cache[m-1][n-1] && cache[m][n] > cache[m][n-1] && cache[m][n] > cache[m-1][n]){
+        //문자열 인덱스는 캐시 인덱스보다 1씩 더 작다. 
+        output = input[n-1] + output;
+        backTracking(m-1, n-1);
+    }else if(cache[m][n] > cache[m-1][n] && cache[m][n] == cache[m][n-1]){
+        backTracking(m, n-1);
+    }else{
+          backTracking(m-1, n);
+    }
+}
+``
 #세그먼트 트리
 
 ```c++
