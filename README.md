@@ -235,22 +235,6 @@ int main(){
 }
 ```
 
-#DP 1로 만들기
-```c++
-int solv(int N){
-     
-    dp[1]=0;
-    for(int i=2; i<=N; i++){
-        dp[i]=dp[i-1]+1;
-        if(i%3==0 && dp[i]>dp[i/3]+1)
-            dp[i] = dp[i/3]+1;
-        if(i%2==0 && dp[i]>dp[i/2]+1)
-            dp[i] = dp[i/2]+1;
-    }
-     
-    return dp[N];
-}
-```
 #Floyd
 ```c++
 for (int k = 0; k < N; ++k)
@@ -365,5 +349,84 @@ int main(void){
 	pick(5, pickarr, 3);
 
 	return 0;
+}
+```
+#DP 1로 만들기
+```c++
+int solv(int N){
+     
+    dp[1]=0;
+    for(int i=2; i<=N; i++){
+        dp[i]=dp[i-1]+1;
+        if(i%3==0 && dp[i]>dp[i/3]+1)
+            dp[i] = dp[i/3]+1;
+        if(i%2==0 && dp[i]>dp[i/2]+1)
+            dp[i] = dp[i/2]+1;
+    }
+     
+    return dp[N];
+}
+```
+
+#DP 파일합치기
+```c++
+//D[i][j] = (i번째 수부터 j번째 수의 합) + min(D[i][k] + D[k+1][j]) for i ≤ k < j
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int T, N;
+int A[501], S[501], D[501][501];
+ 
+int dy(int s, int e)
+{
+    if (s >= e) return 0;
+    if (s+1 == e) return A[s] + A[e];
+    int &ret = D[s][e];
+    if (ret < 2e9) return ret;
+    for (int k=s;k<e;k++){
+        ret = min(ret, dy(s, k) + dy(k+1, e) + S[e] - S[s-1]);
+    }
+    return ret;
+}
+ 
+int main()
+{
+    for (scanf("%d", &T);T--;){
+        scanf("%d", &N);
+        for (int i=1;i<=N;i++) scanf("%d", A+i), S[i] = S[i-1] + A[i];
+        for (int i=1;i<=N;i++) for (int j=i;j<=N;j++) D[i][j] = 2e9;
+        printf("%d\n", dy(1, N));
+    }
+}
+```
+
+#DP 카드게임
+```c++
+//D[i][j] = (i번째 카드부터 j번째 카드까지 적힌 점수 합) - min(D[i+1][j], D[i][j-1])
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int T, N;
+int A[1003], S[1003];
+int D[1003][1003];
+ 
+int dy(int s, int e)
+{
+    if (s > e) return 0;
+    if (s == e) return A[s];
+    int &ret = D[s][e];
+    if (ret >= 0) return ret;
+    ret = max(S[e] - S[s-1] - dy(s+1, e), S[e] - S[s-1] - dy(s, e-1));
+    return ret;
+}
+ 
+int main()
+{
+    for (scanf("%d", &T);T--;){
+        scanf("%d", &N);
+        for (int i=1;i<=N;i++) scanf("%d", A+i), S[i] = S[i-1] + A[i];
+        for (int i=1;i<=N;i++) for (int j=i;j<=N;j++) D[i][j] = -1;
+        printf("%d\n", dy(1, N));
+    }
 }
 ```
