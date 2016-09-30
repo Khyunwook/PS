@@ -158,6 +158,40 @@ int main() {
 }
 ```
 
+#MST PRIM
+```c++
+for(int i=0;i<line;i++){
+        int a,b,c;
+        scanf("%d %d %d" , &a, &b, &c);
+        arr[a].push_back(make_pair(b,c));
+        arr[b].push_back(make_pair(a,c));
+    }
+    
+    check[1] = true;
+    priority_queue<pair<int,int>> q;
+    
+    for (auto &p : arr[1]) {            //arr[1]에 있는 모든 pair형을 다 반복한다.
+        q.push(make_pair(-p.second,p.first));
+    }
+    
+    int answer =0;
+    
+    while(q.empty() != 1){
+        auto p = q.top();               //auto로 인하여 p가 자동적으로 Pair형이 된다.
+        q.pop();
+        if(check[p.second] == true){    //끝점이 방문된적이 있다면 그 경우는 스킵한다.
+            continue;
+        }
+        check[p.second] = true;
+        answer += -p.first;
+        int x = p.second;
+        for (auto &p : arr[x]) {         //연결되는 모든 점의 간선들을 다 넣어준다.
+            q.push(make_pair(-p.second,p.first));
+        }
+    }
+    
+    printf("%d\n" , answer);
+```
 #TSP
 ```c++
 #include <iostream>
