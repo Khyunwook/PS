@@ -62,6 +62,7 @@ int main() {
         candidate.insert(now);
     }
     printf("%d\n",ans);
+    //두점의 거리의 제곱을 출력
     return 0;
 }
 ```
