@@ -1,3 +1,35 @@
+#BFS
+```c++
+	queue<int> q; //matrix
+	check[1] = true; q.push(1);
+	while(!q.empty()){
+		int x = q.front(); q.pop();
+		printf("%d", x);
+		for(int i=1; i<=n; i++){
+			if(a[x][i] == 1 && check[i] == false){
+				check[i] = true;
+				q.push(i);
+			}
+		}
+	}
+//----------------------------------------------------------------------------
+	queue<int> q; //list
+	check[1] = true; q.push(1);
+	while(!q.empty()){
+		int x = q.front(); q.pop();
+		printf("%d", x);
+		for(int i=1; i<=a[x].size(); i++){
+			int y = a[x][i];
+			if( check[i] == false){
+				check[i] = true;
+				q.push(y);
+			}
+		}
+	}
+
+	
+```
+
 #DFS
 ```c++
 void dfs(int x){ //matrix
