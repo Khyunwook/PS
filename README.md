@@ -1,11 +1,22 @@
 #DFS
 ```c++
-void dfs(int x){
+void dfs(int x){ //matrix
 	check[x] = true;
 	printf("%d ",x);
 	for(int i=1; i<=n; i++){
 		if(a[x][i] == 1 && check[i] == false){
 			dfs(i);
+		}
+	}
+}
+
+void dfs(int x){ //list
+	check[x] = true;
+	printf("%d ",x);
+	for(int i=0; i<a[x].size(); i++){
+		int y = a[x][i];
+		if(check[y] == false){
+			dfs(y);
 		}
 	}
 }
