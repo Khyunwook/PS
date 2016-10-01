@@ -1,4 +1,15 @@
-
+#DFS
+```c++
+void dfs(int x){
+	check[x] = true;
+	printf("%d ",x);
+	for(int i=1; i<=n; i++){
+		if(a[x][i] == 1 && check[i] == false){
+			dfs(i);
+		}
+	}
+}
+```
 
 #최장 공통 부분 수열(LCS)
 ```c++
