@@ -1,3 +1,147 @@
+
+
+#FLOYD
+```c++
+for(int i=0; i<n; i++)
+ for(int j=0; j<n; j++)
+  for(int k=0; k<n; k++)
+   if(d[j][k] > d[j][i]+d[i][k]) d[j][k]=d[j][i]+d[i][k]; //dir[j][k]=i;
+   
+print(int i, int j){
+ print(i,dir[i][j]);
+ printf("%d",dir[i][j])
+ print(dir[i][j],j);
+}
+   
+```
+
+#DIJKSTRA
+```c++
+#define MAX 987654321
+using namespace std;
+ 
+typedef struct NODE{
+    int v;
+    int w;
+    NODE(int arg1, int arg2){
+        v=arg1;
+        w=arg2;
+    }
+}Node;
+ 
+struct cmp{
+    bool operator()(Node a, Node b){
+        return a.w>b.w;
+    }
+};
+ 
+vector <Node> graph[1001];
+int dist[1001];
+ 
+void dijkstra(int start){
+    priority_queue<Node, vector <Node> , cmp > pq;
+    fill(dist,dist+1001,MAX);
+    dist[start]=0;
+    pq.push(Node(start,0));
+     
+    while(!pq.empty()){
+        int u = pq.top().v;
+        int d = pq.top().w;
+        pq.pop();
+        if( d > dist[u] ) continue;
+        for(int i=0; i<graph[u].size(); i++){
+            int v = graph[u][i].v;
+            int w = graph[u][i].w;
+            if( dist[v] > dist[u]+w){
+                dist[v]=dist[u]+w;
+                pq.push(Node(v,dist[v]));
+            }
+        }
+    }
+}
+```
+
+#KRUSKAL
+```c++
+struct A{
+    int a,b,d;
+    bool operator<(const A &p)const{
+        return d<p.d;
+    }
+}w[101000];
+int n,m,UF[10100];
+int Find(int a){
+    if(UF[a]==a)return a;
+    return UF[a]=Find(UF[a]);
+}
+int main(){
+    int i, a, b;
+    long long Res = 0;
+    scanf("%d%d",&n,&m);
+    for(i=0;i<m;i++)scanf("%d%d%d",&w[i].a,&w[i].b,&w[i].d);
+    sort(w,w+m);
+    for(i=1;i<=n;i++)UF[i]=i;
+    for(i=0;i<m;i++){
+        a=Find(w[i].a),b=Find(w[i].b);
+        if(a!=b){
+            Res+=w[i].d;
+            UF[a]=b;
+        }
+    }
+    printf("%lld\n",Res);
+}
+```
+#PRIM
+```c++
+typedef struct NODE{
+    int v1;
+    int v2;
+    int w;
+    NODE(int arg1, int arg2, int arg3){
+        v1=arg1; v2 = arg2; w = arg3;
+    }
+}Node;
+ 
+vector < Node > graph[10001];
+int visit[10001];
+ 
+ 
+int n,m;
+ 
+struct cmp{
+    bool operator()(Node a, Node b){
+        return a.w > b.w;
+    }
+};
+ 
+int prim(int start){
+    int ret=0;
+    priority_queue <Node,vector<Node>,cmp> q;
+    int vlen = graph[start].size();
+    for(int i=0; i<vlen; i++){
+        q.push(graph[start][i]);
+    }
+    visit[start]=1;
+    int visitcount=1;
+    while(!q.empty()){
+        Node node = q.top();
+        q.pop();
+        if(visit[node.v2]==0){
+            //printf("%d->%d\n",node.v1,node.v2);
+            ret+=node.w;
+            visitcount++;
+            visit[node.v2]=node.v1;
+            int vlen = graph[node.v2].size();
+            for(int i=0; i<vlen; i++){
+                q.push(graph[node.v2][i]);
+            }
+        }
+        if(visitcount==n)break;
+    }
+    return ret;
+}
+```
+
 #BFS
 ```c++
 	queue<int> q; //matrix
@@ -372,13 +516,7 @@ void Eratos(int n)
 	/*	배열초기화
 		처음엔 모두 소수로 보고 true값을 줌	*/
 	for(int i=2; i<=n; i++) PrimeArray[i]=true;
-	/*	에라토스테네스의 체에 맞게 소수를 구함
-		만일, PrimeArray[i]가 true이면 i 이후의 i 배수는
-		약수로 i를 가지고 있는 것이 되므로 i 이후의 i 배수에 대해
-		false값을 준다.
-		PrimeArray[i]가 false이면 i는 이미 소수가 아니므로 i의 배수 역시
-		소수가 아니게 된다. 그러므로 검사할 필요도 없다.	*/
-		//i*2 (정수 over flow 막기 위해)
+	
 	for(int i=2; (i*i)<=n; i++)
 	{
 		if(PrimeArray[i])
